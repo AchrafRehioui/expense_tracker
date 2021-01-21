@@ -24,14 +24,17 @@ const Form = () => {
 
 
     const createTransaction = () => {
+
         if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
         const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() }
 
         addTransaction(transaction);
         setFormData(initialState);
+
     }
 
     useEffect (() => {
+        
         if(segment){
 
             if(segment.intent.intent === 'add_expense'){
