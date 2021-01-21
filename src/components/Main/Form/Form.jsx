@@ -24,13 +24,16 @@ const Form = () => {
 
 
     const createTransaction = () => {
+        if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
         const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() }
+
         addTransaction(transaction);
         setFormData(initialState);
     }
 
     useEffect (() => {
         if(segment){
+
             if(segment.intent.intent === 'add_expense'){
 
                 setFormData({ ...formData, type: 'Expense'});
@@ -62,7 +65,7 @@ const Form = () => {
                     case 'category':
                         if(incomeCategories.map((iC) => iC.type).includes(category)){
                             setFormData({ ...formData, type: 'Income',  category });
-                            
+
                         } else if(expenseCategories.map((iC) => iC.type).includes(category)){
                             setFormData({ ...formData, type: 'Expense',  category });
 
@@ -77,7 +80,11 @@ const Form = () => {
                         break;
                 }
             })
-        }
+
+            if (segment.isFinal && formData.amount && formData.category && formData.type && formData.date) {
+                createTransaction();
+              }
+            }
     }, [segment])
 
     const selectedCategories = formData.type === 'Income' ? incomeCategories : expenseCategories;
