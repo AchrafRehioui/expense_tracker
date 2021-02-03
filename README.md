@@ -1,6 +1,6 @@
 # Expense Tracker Application
 
-### [Live Site](https://airbnb-clone-5f238.web.app/)
+### [Live Site](https://expense-tracker-f551e.web.app/)
 
 ## Introduction
 This is a code repository for the corresponding project expense tracker. 
